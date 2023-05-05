@@ -1,0 +1,26 @@
+{
+  "name": "dakara",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.16.3",
+    "cross-env": "^7.0.3",
+    "rimraf": "^5.0.0",
+    "tsup": "^6.7.0",
+    "tsx": "^3.12.7"
+  },
+  "dependencies": {
+    "date-fns": "^2.30.0",
+    "dotenv": "^16.0.3",
+    "dotenv-expand": "^10.0.0",
+    "typescript": "^5.0.4",
+    "zod": "^3.21.4"
+  }
+}
