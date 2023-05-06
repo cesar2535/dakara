@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "tsx ./src/main.ts",
+    "build": "cross-env NODE_ENV=production tsup",
+    "clean": "rimraf ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
