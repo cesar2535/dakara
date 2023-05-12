@@ -4,12 +4,28 @@ import {
   LINKUP_BASE_URL,
   USER_AGENT,
 } from "@/config";
+import api from "@/lib/ky";
 
 type Options = {
   companyCode: string;
   employeeCode: string;
   password: string;
   serviceLocation: string;
+};
+
+type LoginResp = {
+  accessToken: string;
+  tokenType: string;
+  expiresIn: number;
+  refreshToken: string;
+  username: string;
+  issued: string;
+  expires: string;
+  jobInfo: string;
+  selectCompanyRequired: boolean;
+  userStatus: number;
+  code: string;
+  refreshExpire: number;
 };
 
 type LocationResp = {
@@ -62,14 +78,13 @@ class Apollo {
     url.searchParams.append("hash", hash);
     url.searchParams.append("_sd", "HRM");
 
-    const resp = await fetch(url, {
+    const resp = await api.post(url, {
       headers,
-      method: "POST",
       body: formData.toString(),
     });
 
     if (!resp.ok) {
-      const json = await resp.json();
+      const json = await resp.json<any>();
 
       throw new Error(json.Error.Title);
     }
@@ -84,10 +99,10 @@ class Apollo {
     url.searchParams.append("response_type", "id_token");
 
     const headers = new Headers({ "User-Agent": USER_AGENT as string });
-    const resp = await fetch(url, { headers, method: "GET" });
+    const resp = await api.get(url, { headers });
 
     if (!resp.ok) {
-      const json = await resp.json();
+      const json = await resp.json<any>();
 
       throw new Error(json.Error.Title);
     }
@@ -106,10 +121,10 @@ class Apollo {
 
     url.searchParams.append("response_type", "id_token");
 
-    const resp = await fetch(url, { headers, method: "GET" });
+    const resp = await api.get(url, { headers });
 
     if (!resp.ok) {
-      const json = await resp.json();
+      const json = await resp.json<any>();
 
       throw new Error(json.Error.Title);
     }
@@ -126,10 +141,10 @@ class Apollo {
       "User-Agent": USER_AGENT as string,
     });
 
-    const resp = await fetch(url, { headers, method: "GET" });
+    const resp = await api.get(url, { headers });
 
     if (!resp.ok) {
-      const json = await resp.json();
+      const json = await resp.json<any>();
 
       throw new Error(json.Error.Title);
     }
@@ -146,10 +161,10 @@ class Apollo {
       "User-Agent": USER_AGENT as string,
     });
 
-    const resp = await fetch(url, { headers, method: "GET" });
+    const resp = await api.get(url, { headers });
 
     if (!resp.ok) {
-      const json = await resp.json();
+      const json = await resp.json<any>();
 
       throw new Error(json.Error.Title);
     }
@@ -200,14 +215,14 @@ class Apollo {
       functioncode: "APP-LocationCheckin",
     });
 
-    const resp = await fetch(url, {
+    const resp = await api.post(url, {
       headers,
       method: "POST",
       body: formData.toString(),
     });
 
     if (!resp.ok) {
-      const json = await resp.json();
+      const json = await resp.json<any>();
 
       throw new Error(json.Error.Title);
     }
