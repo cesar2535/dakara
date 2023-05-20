@@ -5,38 +5,13 @@ import {
   USER_AGENT,
 } from "@/config";
 import api from "@/lib/ky";
+import camelize from "camelize-ts";
 
 type Options = {
   companyCode: string;
   employeeCode: string;
   password: string;
   serviceLocation: string;
-};
-
-type LoginResp = {
-  accessToken: string;
-  tokenType: string;
-  expiresIn: number;
-  refreshToken: string;
-  username: string;
-  issued: string;
-  expires: string;
-  jobInfo: string;
-  selectCompanyRequired: boolean;
-  userStatus: number;
-  code: string;
-  refreshExpire: number;
-};
-
-type LocationResp = {
-  Data: {
-    PunchesLocationId: string;
-    LocationCode: string;
-    LocationName: string;
-    Latitude: number;
-    Longitude: number;
-    RadiusofEffectiveRange: number;
-  }[];
 };
 
 class Apollo {
@@ -84,13 +59,13 @@ class Apollo {
     });
 
     if (!resp.ok) {
-      const json = await resp.json<any>();
+      const json: ErrorResponse = await resp.json();
 
       throw new Error(json.Error.Title);
     }
 
-    const json = await resp.json();
-    return json;
+    const json: LoginResponse = await resp.json();
+    return camelize(json);
   }
 
   async fetchAccessToken(code: string) {
@@ -102,14 +77,14 @@ class Apollo {
     const resp = await api.get(url, { headers });
 
     if (!resp.ok) {
-      const json = await resp.json<any>();
+      const json: ErrorResponse = await resp.json();
 
       throw new Error(json.Error.Title);
     }
 
-    const json = await resp.json();
+    const json: TokenResponse = await resp.json();
 
-    return json;
+    return camelize(json);
   }
 
   async refreshToken(token: string) {
@@ -124,12 +99,12 @@ class Apollo {
     const resp = await api.get(url, { headers });
 
     if (!resp.ok) {
-      const json = await resp.json<any>();
+      const json: ErrorResponse = await resp.json();
 
       throw new Error(json.Error.Title);
     }
 
-    const json = await resp.json();
+    const json: TokenResponse = await resp.json();
 
     return json;
   }
@@ -144,12 +119,12 @@ class Apollo {
     const resp = await api.get(url, { headers });
 
     if (!resp.ok) {
-      const json = await resp.json<any>();
+      const json: ErrorResponse = await resp.json();
 
       throw new Error(json.Error.Title);
     }
 
-    const json = await resp.json();
+    const json: UserResponse = await resp.json();
 
     return json;
   }
@@ -164,14 +139,14 @@ class Apollo {
     const resp = await api.get(url, { headers });
 
     if (!resp.ok) {
-      const json = await resp.json<any>();
+      const json: ErrorResponse = await resp.json();
 
       throw new Error(json.Error.Title);
     }
 
-    const json: LocationResp = await resp.json();
+    const json: LocationResponse = await resp.json();
 
-    return json;
+    return camelize(json);
   }
 
   async punch(type: 1 | 2, token: string, location: string) {
@@ -182,14 +157,14 @@ class Apollo {
     const long = 0;
     const locId = "00000000-0000-0000-0000-000000000000";
 
-    const locationData = Object.entries(locations.Data).reduce(
+    const locationData = Object.entries(locations.data).reduce(
       (acc, pair) => {
         const data = pair[1];
 
-        if (data.LocationName === location) {
-          const lat = data.Latitude;
-          const long = data.Longitude;
-          const locId = data.PunchesLocationId;
+        if (data.locationName === location) {
+          const lat = data.latitude;
+          const long = data.longitude;
+          const locId = data.punchesLocationId;
 
           return { lat, long, locId };
         }
@@ -222,12 +197,12 @@ class Apollo {
     });
 
     if (!resp.ok) {
-      const json = await resp.json<any>();
+      const json: ErrorResponse = await resp.json();
 
       throw new Error(json.Error.Title);
     }
 
-    const json = await resp.json();
+    const json: PunchResponse = await resp.json();
 
     return json;
   }
