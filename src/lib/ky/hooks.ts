@@ -1,4 +1,4 @@
-import { camelizeKeys } from "@/utils/object";
+import camelize from "camelize-ts";
 import { HTTPError, NormalizedOptions } from "ky";
 
 const ContentType = {
@@ -26,7 +26,7 @@ export async function normalizeResponse(
   const json = parseJson(text);
   const data = Object.assign({}, json, { status, statusText });
 
-  const camelizedData = camelizeKeys(data);
+  const camelizedData = camelize(data);
   const nextResponse = new Response(JSON.stringify(camelizedData), {
     headers,
     status,
