@@ -1,5 +1,6 @@
 import "./env";
 
+export const ENVIROMENT = process.env.NODE_ENV || "development";
 export const COMPANY_CODE = process.env.COMPANY_CODE;
 export const EMPLOYEE_CODE = process.env.EMPLOYEE_CODE;
 export const PASSWORD = process.env.PASSWORD;
