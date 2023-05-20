@@ -23,6 +23,12 @@ jobs:
       EMPLOYEE_CODE: ${{ secrets.EMPLOYEE_CODE }}
       PASSWORD: ${{ secrets.PASSWORD }}
 
+      USER_AGENT: ${{ secrets.USER_AGENT }}
+      SRV_LOCATION: ${{ secrets.SRV_LOCATION }}
+      HRM_BASE_URL: ${{ secrets.HRM_BASE_URL }}
+      LINKUP_BASE_URL: ${{ secrets.LINKUP_BASE_URL }}
+      AUTH_BASE_URL: ${{ secrets.AUTH_BASE_URL }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
