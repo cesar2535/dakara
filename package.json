@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bunyan": "^1.8.8",
     "@types/lodash": "^4.14.194",
     "@types/node": "^18.16.3",
     "cross-env": "^7.0.3",
@@ -21,6 +22,7 @@
     "tsx": "^3.12.7"
   },
   "dependencies": {
+    "bunyan": "^1.8.15",
     "camelize-ts": "^3.0.0",
     "date-fns": "^2.30.0",
     "dotenv": "^16.0.3",
