@@ -6,6 +6,7 @@ import {
 } from "@/config";
 import api from "@/lib/ky";
 import camelize from "camelize-ts";
+import crypto from "crypto";
 
 type Options = {
   companyCode: string;
@@ -59,12 +60,12 @@ class Apollo {
     });
 
     if (!resp.ok) {
-      const json: ErrorResponse = await resp.json();
+      const json: { data: ErrorResponse } = await resp.json();
 
-      throw new Error(json.Error.Title);
+      throw new Error(json.data.Error.Title);
     }
 
-    const json: LoginResponse = await resp.json();
+    const json: { data: LoginResponse } = await resp.json();
     return camelize(json);
   }
 
@@ -77,12 +78,12 @@ class Apollo {
     const resp = await api.get(url, { headers });
 
     if (!resp.ok) {
-      const json: ErrorResponse = await resp.json();
+      const json: { data: ErrorResponse } = await resp.json();
 
-      throw new Error(json.Error.Title);
+      throw new Error(json.data.Error.Title);
     }
 
-    const json: TokenResponse = await resp.json();
+    const json: { data: TokenResponse } = await resp.json();
 
     return camelize(json);
   }
@@ -99,12 +100,12 @@ class Apollo {
     const resp = await api.get(url, { headers });
 
     if (!resp.ok) {
-      const json: ErrorResponse = await resp.json();
+      const json: { data: ErrorResponse } = await resp.json();
 
-      throw new Error(json.Error.Title);
+      throw new Error(json.data.Error.Title);
     }
 
-    const json: TokenResponse = await resp.json();
+    const json: { data: TokenResponse } = await resp.json();
 
     return json;
   }
@@ -119,12 +120,12 @@ class Apollo {
     const resp = await api.get(url, { headers });
 
     if (!resp.ok) {
-      const json: ErrorResponse = await resp.json();
+      const json: { data: ErrorResponse } = await resp.json();
 
-      throw new Error(json.Error.Title);
+      throw new Error(json.data.Error.Title);
     }
 
-    const json: UserResponse = await resp.json();
+    const json: { data: UserResponse } = await resp.json();
 
     return json;
   }
@@ -139,12 +140,12 @@ class Apollo {
     const resp = await api.get(url, { headers });
 
     if (!resp.ok) {
-      const json: ErrorResponse = await resp.json();
+      const json: { data: ErrorResponse } = await resp.json();
 
-      throw new Error(json.Error.Title);
+      throw new Error(json.data.Error.Title);
     }
 
-    const json: LocationResponse = await resp.json();
+    const json: { data: LocationResponse } = await resp.json();
 
     return camelize(json);
   }
@@ -157,7 +158,7 @@ class Apollo {
     const long = 0;
     const locId = "00000000-0000-0000-0000-000000000000";
 
-    const locationData = Object.entries(locations.data).reduce(
+    const locationData = Object.entries(locations.data.data).reduce(
       (acc, pair) => {
         const data = pair[1];
 
@@ -197,12 +198,12 @@ class Apollo {
     });
 
     if (!resp.ok) {
-      const json: ErrorResponse = await resp.json();
+      const json: { data: ErrorResponse } = await resp.json();
 
-      throw new Error(json.Error.Title);
+      throw new Error(json.data.Error.Title);
     }
 
-    const json: PunchResponse = await resp.json();
+    const json: { data: PunchResponse } = await resp.json();
 
     return json;
   }

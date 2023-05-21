@@ -31,11 +31,11 @@ async function up() {
     // get code by login api
     const loginData = await service.login();
     // get id token
-    const accessToken = await service.fetchAccessToken(loginData.code);
+    const accessToken = await service.fetchAccessToken(loginData.data.code);
     // punch with 1 to check-in
     const resp = await service.punch(
       1,
-      accessToken.idToken,
+      accessToken.data.idToken,
       LOCATION as string
     );
 
@@ -57,11 +57,11 @@ async function down() {
     // get code by login api
     const loginData = await service.login();
     // get id token
-    const accessToken = await service.fetchAccessToken(loginData.code);
+    const accessToken = await service.fetchAccessToken(loginData.data.code);
     // punch with 1 to check-in
     const resp = await service.punch(
       2,
-      accessToken.idToken,
+      accessToken.data.idToken,
       LOCATION as string
     );
 
