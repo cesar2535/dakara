@@ -9,6 +9,13 @@ on:
         description: Environment to run
         type: environment
         required: true
+      type:
+        type: choice
+        description: Punch type
+        required: true
+        options:
+          - up
+          - down
 
 jobs:
   dakara:
@@ -45,3 +52,12 @@ jobs:
       - name: Punch 2
         if: github.event.schedule == '0 11 * * *'
         run: pnpm start down
+      - name: Manually punch
+        if: github.event.inputs.type
+        run: pnpm start ${{ github.event.inputs.type }}
+      - name: Upload logs
+        uses: actions/upload-artifact@v3
+        with:
+          name: dakara-log
+          path: logs/dakara.log
+          retention-days: 5
