@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
     env:
       COMPANY_CODE: ${{ secrets.COMPANY_CODE }}
       EMPLOYEE_CODE: ${{ secrets.EMPLOYEE_CODE }}
