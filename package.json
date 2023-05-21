@@ -29,7 +29,6 @@
     "dotenv": "^16.0.3",
     "dotenv-expand": "^10.0.0",
     "ky": "^0.33.3",
-    "lodash": "^4.17.21",
     "snakify-ts": "^2.3.0",
     "typescript": "^5.0.4",
     "zod": "^3.21.4"
