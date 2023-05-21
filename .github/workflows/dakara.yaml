@@ -8,7 +8,6 @@ on:
       environment:
         description: Environment to run
         type: environment
-        required: true
       type:
         type: choice
         description: Punch type
