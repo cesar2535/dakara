@@ -1,5 +1,6 @@
 import camelize from "camelize-ts";
 import { HTTPError, NormalizedOptions } from "ky";
+import logger from "../bunyan";
 
 const ContentType = {
   JSON: "json",
@@ -50,6 +51,8 @@ class NormalizedError extends HTTPError {
 
 export async function normalizeError(error: HTTPError) {
   const json = await error.response.json();
+
+  logger.error(json);
 
   const normalizedError = new NormalizedError(error, {
     code: json.data.code,
