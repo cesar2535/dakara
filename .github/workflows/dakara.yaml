@@ -28,6 +28,7 @@ jobs:
       COMPANY_CODE: ${{ secrets.COMPANY_CODE }}
       EMPLOYEE_CODE: ${{ secrets.EMPLOYEE_CODE }}
       PASSWORD: ${{ secrets.PASSWORD }}
+      LOCATION: ${{ secrets.LOCATION }}
 
       USER_AGENT: ${{ secrets.USER_AGENT }}
       SRV_LOCATION: ${{ secrets.SRV_LOCATION }}
